@@ -16,11 +16,12 @@ class HashLib {
 	 */
 	public function hash($inputs = null, $options = array()) {
 		$options = array_merge(array(
-			'ip' => true,
-			'member_id' => true,
-			'date' => true,
-			'setDate' => 'now',
-			'type' => 'sha',
+			'ip' => false, // careful, satelite and dialup shift IPs all the time
+			'user_agent' => true, // should be safe, changing browsers kills session
+			'member_id' => true, // should be safe, login = isolation
+			'date' => true, // should be safe, date reasonale timeframe
+			'setDate' => 'now', // means of force-setting date timestamp
+			'type' => 'sha1', // md5 or sha1
 		), $options);
 		$hashkey = Configure::read('Security.salt');
 		if (!empty($inputs)) {
@@ -28,6 +29,9 @@ class HashLib {
 		}
 		if ($options['ip']) {
 			$hashkey .= env('REMOTE_ADDR');
+		}
+		if ($options['user_agent']) {
+			$hashkey .= env('HTTP_USER_AGENT');
 		}
 		if ($options['member_id'] && class_exists('AuthComponent')) {
 			$hashkey .= strval(AuthComponent::user('id'));

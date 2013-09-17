@@ -17,6 +17,11 @@ class HashComponent extends Component {
 	public $HashLib = null;
 
 	/**
+	 * placeholder for Controller object
+	 */
+	public $request = null;
+
+	/**
 	 * Simple setup for the HashLib class
 	 *
 	 * @return object $this->HashLib
@@ -25,9 +30,20 @@ class HashComponent extends Component {
 		if (is_object($this->HashLib)) {
 			return $this->HashLib;
 		}
-		App::uses('HashLib', 'Lib');
+		App::uses('HashLib', 'Hash.Lib');
 		$this->HashLib = new HashLib;
 		return $this->HashLib;
+	}
+
+	/**
+	 * Called after the Controller::beforeFilter() and before the controller action
+	 *
+	 * @param Controller $controller Controller with components to startup
+	 * @return void
+	 * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::startup
+	 */
+	public function startup(Controller $controller) {
+		$this->request = $controller->request;
 	}
 
 	/**
@@ -70,9 +86,11 @@ class HashComponent extends Component {
 		}
 		$hashToCheck = $this->request->data['Verify']['hash'];
 		$hashInput = null;
+		// NOTE these options must match on the HashComponent & HashHelper
 		$hashOptions = array(
-			'ip' => true,
-			'member_id' => false,
+			'ip' => false,
+			'user_agent' => true,
+			'member_id' => true,
 			'date' => true,
 		);
 		if ($this->validateHash($hashToCheck, $hashInput, $hashOptions)) {

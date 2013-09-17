@@ -39,9 +39,15 @@ class HashHelper extends Helper {
 	 * @return string $formHash
 	 */
 	public function form() {
-		$inputs = 'form';
-		$options = array('ip' => false);
-		return $this->setup()->hash($inputs, $options);
+		$hashInput = null;
+		// NOTE these options must match on the HashComponent & HashHelper
+		$hashOptions = array(
+			'ip' => false,
+			'user_agent' => true,
+			'member_id' => true,
+			'date' => true,
+		);
+		return $this->setup()->hash($hashInput, $hashOptions);
 	}
 
 	/**
