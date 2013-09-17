@@ -5,6 +5,22 @@ This is a very simple utility plugin to allow the easy standardization of
 creating unique hashes for various inputs
 (dynamically derrived as well as explicitly)
 
+Install
+-------------
+
+```
+git submodule add git@github.com:AudiologyHoldings/Hash-CakePHP-Plugin.git app/Plugin/Hash
+```
+
+then edit your `bootstrap.php` to load the plugin:
+
+```
+CakePlugin::load('Hash');
+```
+
+Usage
+-------------
+
 In `AppController` (or any Controller)
 
 ```
