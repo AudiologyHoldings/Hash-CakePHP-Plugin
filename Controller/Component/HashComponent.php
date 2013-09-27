@@ -104,5 +104,17 @@ class HashComponent extends Component {
 		return false;
 	}
 
+	/**
+	 * This is a handy shortcut to only pass through Verified Request Data
+	 *
+	 * @return array request->data or empty array
+	 */
+	public function verifiedRequestData() {
+		if (!$this->verifyFormDataHash()) {
+			return array();
+		}
+		return $this->request->data;
+	}
+
 }
 
