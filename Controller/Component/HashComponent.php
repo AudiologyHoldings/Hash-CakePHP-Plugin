@@ -79,7 +79,7 @@ class HashComponent extends Component {
 	 */
 	public function verifyFormDataHash($allowInputFromRequest=false) {
 		if ($allowInputFromRequest && empty($this->request->data['Verify']['hash'])) {
-			$this->request->data['Verify']['hash'] == $this->request->query('v');
+			$this->request->data['Verify']['hash'] = $this->request->query('v');
 		}
 		if (empty($this->request->data['Verify']['hash'])) {
 			return false;
