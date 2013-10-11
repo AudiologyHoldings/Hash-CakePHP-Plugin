@@ -59,6 +59,25 @@ class HashComponent extends Component {
 	}
 
 	/**
+	 * Create a hash based on some inputs...
+	 * usually this is used to create a link or key which will the be validated
+	 * (this variant could be used by anyone with the link)
+	 *
+	 * @param mixed $inputs
+	 * @param array $options
+	 * @return string $hash
+	 */
+	public function hashAnyone($inputs = null, $options = array()) {
+		$options = array_merge(array(
+			'ip' => false,
+			'user_agent' => false,
+			'member_id' => false,
+			'date' => false,
+		), $options);
+		return $this->setup()->hash($inputs, $options);
+	}
+
+	/**
 	 * A standardized way to validate hashing
 	 * (see OutputHelper::hashLink() for what should help make these links)
 	 *
