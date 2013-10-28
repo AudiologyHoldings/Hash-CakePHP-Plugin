@@ -68,12 +68,7 @@ class HashComponent extends Component {
 	 * @return string $hash
 	 */
 	public function hashAnyone($inputs = null, $options = array()) {
-		$options = array_merge(array(
-			'ip' => false,
-			'user_agent' => false,
-			'member_id' => false,
-			'date' => false,
-		), $options);
+		$options = $this->setup()->optionsAnyone($options);
 		return $this->setup()->hash($inputs, $options);
 	}
 
@@ -87,6 +82,21 @@ class HashComponent extends Component {
 	 * @return boolean
 	 */
 	public function validateHash($hashToCheck = null, $hashInput = null, $hashOptions = array()) {
+		return $this->setup()->validateHash($hashToCheck, $hashInput, $hashOptions);
+	}
+
+	/**
+	 * A standardized way to validate hashing
+	 * (see OutputHelper::hashLink() for what should help make these links)
+	 * (this variant could be used by anyone with the link)
+	 *
+	 * @param string $hashToCheck
+	 * @param mixed $hashInput
+	 * @param mixed $hashOptions
+	 * @return boolean
+	 */
+	public function validateHashAnyone($hashToCheck = null, $hashInput = null, $hashOptions = array()) {
+		$hashOptions = $this->setup()->optionsAnyone($hashOptions);
 		return $this->setup()->validateHash($hashToCheck, $hashInput, $hashOptions);
 	}
 

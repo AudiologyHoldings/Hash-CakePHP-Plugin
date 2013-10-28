@@ -86,12 +86,7 @@ class HashHelper extends Helper {
 	 * @return string $hash
 	 */
 	public function hashAnyone($inputs = null, $options = array()) {
-		$options = array_merge(array(
-			'ip' => false,
-			'user_agent' => false,
-			'member_id' => false,
-			'date' => false,
-		), $options);
+		$options = $this->setup()->optionsAnyone($options);
 		return $this->setup()->hash($inputs, $options);
 	}
 

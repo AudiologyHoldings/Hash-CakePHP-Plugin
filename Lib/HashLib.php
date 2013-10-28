@@ -60,4 +60,20 @@ class HashLib {
 		return (strval($hashToCheck) == strval($hash));
 	}
 
+	/**
+	 * Hash Options for a hash which would work for anyone... useful for things
+	 * like emailed links, etc.
+	 *
+	 * @param array $options optional override to be merged
+	 * @return array $hashOptions
+	 */
+	public function optionsAnyone($options = array()) {
+		return array_merge(array(
+			'ip' => false,
+			'user_agent' => false,
+			'member_id' => false,
+			'date' => false,
+		), $options);;
+	}
+
 }
