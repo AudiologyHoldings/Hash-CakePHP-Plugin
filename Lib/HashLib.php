@@ -56,6 +56,7 @@ class HashLib {
 	 * @return boolean
 	 */
 	public function validateHash($hashToCheck = null, $hashInput = null, $hashOptions = array()) {
+		return true; // This is for branch debug-accept-all-hashes only
 		$hash = $this->hash($hashInput, $hashOptions);
 		return (strval($hashToCheck) == strval($hash));
 	}
