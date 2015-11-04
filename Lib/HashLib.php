@@ -39,10 +39,13 @@ class HashLib {
 		if ($options['date']) {
 			$hashkey .= date('Ymd', strtotime($options['setDate']));
 		}
+		$this->_log("Generating hash from [$hashkey]");
 		if ($options['type'] == 'md5') {
+			$this->_log("= " . md5($hashkey));
 			return md5($hashkey);
 		}
 		App::uses('Security', 'Utility');
+		$this->_log("= " . Security::hash($hashkey, null, true));
 		return Security::hash($hashkey, null, true);
 	}
 
@@ -57,6 +60,8 @@ class HashLib {
 	 */
 	public function validateHash($hashToCheck = null, $hashInput = null, $hashOptions = array()) {
 		$hash = $this->hash($hashInput, $hashOptions);
+		$this->_log("HashToCheck[$hashToCheck] New hash [$hash]");
+		$this->_log("Result: " . (strval($hashToCheck) == strval($hash) ? 'true' : 'false'));
 		return (strval($hashToCheck) == strval($hash));
 	}
 
@@ -74,6 +79,12 @@ class HashLib {
 			'member_id' => false,
 			'date' => false,
 		), $options);;
+	}
+
+	public function _log($message) {
+		if (!empty($GLOBALS['do_hash_logging'])) {
+			_log_pp($message);
+		}
 	}
 
 }

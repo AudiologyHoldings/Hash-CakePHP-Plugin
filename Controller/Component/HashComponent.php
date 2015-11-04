@@ -108,9 +108,11 @@ class HashComponent extends Component {
 	 */
 	public function verifyFormDataHash($allowInputFromRequest=false) {
 		if ($allowInputFromRequest && empty($this->request->data['Verify']['hash'])) {
+			$this->_log('Swapping verify hash to use request query v');
 			$this->request->data['Verify']['hash'] = $this->request->query('v');
 		}
 		if (empty($this->request->data['Verify']['hash'])) {
+			$this->_log('Verify hash is empty');
 			return false;
 		}
 		$hashToCheck = $this->request->data['Verify']['hash'];
@@ -122,6 +124,7 @@ class HashComponent extends Component {
 			'member_id' => true,
 			'date' => true,
 		);
+		$this->_log("Checking hash [$hashToCheck]");
 		if ($this->validateHash($hashToCheck, $hashInput, $hashOptions)) {
 			return true;
 		}
@@ -144,6 +147,13 @@ class HashComponent extends Component {
 		}
 		return $this->request->data;
 	}
+
+	public function _log($message) {
+		if (!empty($GLOBALS['do_hash_logging'])) {
+			_log_pp($message);
+		}
+	}
+
 
 }
 
