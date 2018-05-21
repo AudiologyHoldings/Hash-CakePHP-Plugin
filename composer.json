@@ -1,0 +1,8 @@
+{
+  "name": "audiologyholdings/hash",
+  "description": "Very Basic Hashing for CakePHP",
+  "type": "cakephp-plugin",
+  "require": {
+    "cakephp/cakephp": ">=2.5.5.4 <3.0.0"
+  }
+}
