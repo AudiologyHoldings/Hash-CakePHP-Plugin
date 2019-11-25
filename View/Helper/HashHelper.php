@@ -38,15 +38,15 @@ class HashHelper extends Helper {
 	 *
 	 * @return string $formHash
 	 */
-	public function form() {
+	public function form($hashOptions = []) {
 		$hashInput = null;
 		// NOTE these options must match on the HashComponent & HashHelper
-		$hashOptions = array(
+		$hashOptions = array_merge([
 			'ip' => false,
 			'user_agent' => true,
 			'member_id' => true,
 			'date' => true,
-		);
+		], $hashOptions);
 		return $this->setup()->hash($hashInput, $hashOptions);
 	}
 
@@ -54,8 +54,8 @@ class HashHelper extends Helper {
 	 *
 	 *
 	 */
-	public function hiddenFormVerify() {
-		return sprintf($this->hiddenFormVerifyTemplate, $this->form());
+	public function hiddenFormVerify($hashOptions = []) {
+		return sprintf($this->hiddenFormVerifyTemplate, $this->form($hashOptions));
 	}
 
 	/**
