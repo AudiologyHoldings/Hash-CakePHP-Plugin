@@ -123,7 +123,7 @@ class HashComponent extends Component {
 			'date' => true,
 		);
 		if (strval(AuthComponent::user('id')) === '0') {
-			$hashOptions['member_id'] = false; //User module member logged in but no member_id created yet
+			$hashOptions['member_id'] = false; // User module member logged in but no member_id created yet
 		}
 		if ($this->validateHash($hashToCheck, $hashInput, $hashOptions)) {
 			return true;
@@ -149,4 +149,3 @@ class HashComponent extends Component {
 	}
 
 }
-
